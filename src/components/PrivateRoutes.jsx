@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
-const PrivateRoutes = () => {
-  return (
-    <div>PrivateRoutes</div>
-  )
-}
+const PrivateRoutes = ({ className }) => {
+  return <div className={className}>
+  
+  </div>;
+};
 
-export default PrivateRoutes
+export default PrivateRoutes;

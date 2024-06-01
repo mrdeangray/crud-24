@@ -10,7 +10,11 @@ const TaskProvider = ({ children }) => {
     setTasks(savedTasks);
   }, []);
 
-  return <TaskContext.Provider>{children}</TaskContext.Provider>;
+  return (
+    <TaskContext.Provider value={{ tasks, setTasks }}>
+      {children}
+    </TaskContext.Provider>
+  );
 };
 
 export default TaskProvider;
