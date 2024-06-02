@@ -9,15 +9,17 @@ import DeleteTask from "./DeleteTask";
 
 const RenderRoutes = ({ className }) => {
   return (
-    <Routes className={className}>
-      <Route element={<PrivateRoutes />}>
-        <Route exact path="/createtask" element={<CreateTask />} />
-        <Route exact path="/readtasks" element={<ReadTasks />} />
-        <Route exact path="/updatetask" element={<UpdateTask />} />
-        <Route exact path="/deletetask" element={<DeleteTask />} />
-      </Route>
-      <Route exact path="/" element={<Home />} />
-    </Routes>
+    <div className={className}>
+      <Routes>
+        <Route element={<PrivateRoutes />}>
+          <Route exact path="/createtask" element={<CreateTask />} />
+          <Route exact path="/readtasks" element={<ReadTasks />} />
+          <Route exact path="/updatetask/:id" element={<UpdateTask />} />
+          <Route exact path="/deletetask/:id" element={<DeleteTask />} />
+        </Route>
+        <Route exact path="/" element={<Home />} />
+      </Routes>
+    </div>
   );
 };
 

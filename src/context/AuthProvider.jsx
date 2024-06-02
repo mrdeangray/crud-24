@@ -5,12 +5,12 @@ import { auth, googleProvider } from "../firebase";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-  const [currUser, setCurrUser] = useState(null);
+  const [currUser, setCurrUser] = useState({ displayName: "DeanGray" });
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (u) => setCurrUser(u));
-    return () => unsubscribe();
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (u) => setCurrUser(u));
+  //   return () => unsubscribe();
+  // }, []);
 
   const handleSignIn = () => {
     signInWithPopup(auth, googleProvider);

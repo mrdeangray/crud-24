@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 .App {
+
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -43,6 +44,21 @@
   height: 100%;
 }
 .main{
+  margin: 0 auto;
   background-color: grey;
   width: 100%;
+}
+
+.form input{
+  border-radius: 10px;
+font-size: 18px;
+padding-left: 10px;
+}
+.form .sub-task input{
+  width: 100px;
+margin-left: 30px;
+}
+.box{
+  border: 2px solid green;
+  width: 40%;
 }
