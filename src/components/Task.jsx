@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { TaskContext } from "../context/TaskProvider";
 import { Link } from "react-router-dom";
+import CirclePercent from "../pages/CirclePercent";
 
 const Task = ({ task, className }) => {
   const { tasks, setTasks } = useContext(TaskContext);
@@ -12,7 +13,7 @@ const Task = ({ task, className }) => {
       (newSubtasks.filter((s) => s.completed).length / newSubtasks.length) * 100
     );
 
-    console.log(percentCompleted);
+ 
     const newTasks = tasks.map((tk) => {
       if (tk.id === task.id) {
         tk.percentCompleted = percentCompleted;
@@ -22,13 +23,14 @@ const Task = ({ task, className }) => {
     });
 
     setTasks(newTasks);
-    localStorage.setItem("crud-24-tasks", JSON.stringify(newTasks));
+    localStorage.setItem("crud-27-tasks", JSON.stringify(newTasks));
   };
 
   return (
     <div className={className}>
       <h2>{task.name}</h2>
       <h4>{task.percentCompleted}%</h4>
+      <CirclePercent radius="20" percentage={task.percentCompleted} />
       {task.subtasks.map((subtask, index) => {
         return (
           <p
@@ -42,6 +44,15 @@ const Task = ({ task, className }) => {
           </p>
         );
       })}
+      <p>
+        Past Due:{" "}
+        {task.dueDateTime.toDate().getTime() < new Date().getTime()
+          ? "Yes"
+          : "No"}
+      </p>
+      <p>Priority: {task.priority}</p>
+      <p>Complexity: {task.complexity}</p>
+      <p>Category: {task.category}</p>
       <Link to={`/updatetask/${task.id}`}>
         <button>Update</button>
       </Link>

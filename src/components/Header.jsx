@@ -5,7 +5,7 @@ const Header = ({ className }) => {
   const { currUser } = useContext(AuthContext);
   return (
     <nav className={className}>
-      <h3>CRUD-24</h3>
+      <h3>CRUD-27</h3>
       <ul>
         <li>Link1</li>
         <li>Link1</li>

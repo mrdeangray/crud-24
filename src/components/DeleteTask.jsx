@@ -33,7 +33,7 @@ const DeleteTask = () => {
   const handleDelete = () => {
     const newTasks = tasks.filter(task=>task.id !==id)
     setTasks(newTasks);
-    localStorage.setItem("crud-24-tasks", JSON.stringify(newTasks));
+    localStorage.setItem("crud-27-tasks", JSON.stringify(newTasks));
     setIsUpdating(true);
     setTimeout(() => {
       navigate("/readtasks");
