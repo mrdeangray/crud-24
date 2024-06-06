@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { TaskContext } from "../context/TaskProvider";
+import DatePicker, { DateObject } from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
 
 const Msg = styled.p`
   color: blue;
@@ -17,11 +19,18 @@ const UpdateTask = () => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [currTask, setCurrTask] = useState({});
   const [percentCompleted, setPercentCompleted] = useState(0);
+  const [priority, setPriority] = useState("2");
+  const [complexity, setComplexity] = useState("2");
+  const [category, setCategory] = useState("Category");
+  const [dueDateTime, setDueDateTime] = useState(new DateObject());
 
   useEffect(() => {
     const curr = tasks.find((task) => task.id === id);
     setTaskName(curr.name);
     setSubtasks(curr.subtasks);
+    setPriority(curr.priority);
+    setComplexity(curr.complexity);
+    setCategory(curr.category);
     setPercentCompleted(curr.percentCompleted);
     setCurrTask(curr);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,12 +66,15 @@ const UpdateTask = () => {
       if (task.id === id) {
         task.name = taskName;
         task.percentCompleted = percentCompleted;
+        task.priority = priority;
+        task.complexity = complexity;
+        task.category = category;
         task.subtasks = [...subtasks];
       }
       return task;
     });
     setTasks(newTasks);
-    localStorage.setItem("crud-24-tasks", JSON.stringify(newTasks));
+    localStorage.setItem("crud-27-tasks", JSON.stringify(newTasks));
     setIsUpdating(true);
     setTimeout(() => {
       navigate("/readtasks");
@@ -87,6 +99,12 @@ const UpdateTask = () => {
           onChange={(e) => setTaskName(e.target.value)}
           value={taskName}
         />
+        <DatePicker
+          value={dueDateTime}
+          onChange={setDueDateTime}
+          format="MM/DD/YYYY HH:mm:ss"
+          plugins={[<TimePicker position="bottom" />]}
+        />
         <h3>{percentCompleted}%</h3>
         {subtasks.map((subtask, index) => {
           return (
@@ -102,6 +120,50 @@ const UpdateTask = () => {
           );
         })}
         <button onClick={handleAdd}>Add</button>
+        <div className="priority">
+          <span>Priority: </span>
+          {["1", "2", "3"].map((value, index) => {
+            return (
+              <label key={index} htmlFor={value}>
+                <input
+                  type="radio"
+                  id={value}
+                  value={value}
+                  name="priority"
+                  checked={value === priority}
+                  onChange={(e) => setPriority(e.target.value)}
+                />
+                {value}
+              </label>
+            );
+          })}
+        </div>
+
+        <div className="complexity">
+          <span>Complexity: </span>
+          {["1", "2", "3"].map((value, index) => {
+            return (
+              <label key={index} htmlFor={value}>
+                <input
+                  type="radio"
+                  id={value}
+                  name="complexity"
+                  value={value}
+                  checked={value === complexity}
+                  onChange={(e) => setComplexity(e.target.value)}
+                />
+                {value}
+              </label>
+            );
+          })}
+        </div>
+        <input
+          type="text"
+          value={category}
+          placeholder="Category"
+          onChange={(e) => setCategory(e.target.value)}
+        />
+
         <button onClick={handleSubmit}>Submit</button>
       </div>
       {tasks?.map((task) => {

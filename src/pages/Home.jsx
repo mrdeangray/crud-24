@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { Link } from "react-router-dom";
+import CirclePercent from "./CirclePercent";
 
 const Home = () => {
   const { currUser, handleSignIn, handleSignOut } = useContext(AuthContext);
@@ -17,6 +18,8 @@ const Home = () => {
       ) : (
         <button onClick={handleSignIn}>Sign In</button>
       )}
+
+      <CirclePercent radius="20" percentage="50" />
     </div>
   );
 };
